@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>         
+     <script>
+         function CheckUserName()
+         {
+            var nameCheck = /^[a-z]\w*/;
+            if (nameCheck.test(document.getElementById("User").value)==false)
+            {   
+                spanUser.innerText="*Bắt buộc tên đăng nhập phải bắt đầu bằng kí tự"; 
+                return false;               
+            }      
+            else
+            {
+                spanUser.innerText="v";
+                return true;
+            }                         
+            
+         }
+         function CheckPassword()
+         {
+             var passwordCheck = /(?=.*).{6,}/;
+             if (passwordCheck.test(document.getElementById("Password").value)==false)
+             {
+                 spanPassword.innerText="*Mật khẩu phải có cả số và chữ và dài hơn 6 kí tự"
+                 return false;
+             }
+             else
+             {
+                 spanPassword.innerText="v";
+                 return true;
+             }
+         } 
+         function CheckReInputPassword()
+         {
+             if(document.getElementById("Password").value != document.getElementById("ReInputPassword").value)
+             {
+                 spanReInputPassword.innerText="* Xác nhận mật khẩu không đúng";
+                 return false;
+             }
+             else
+             {
+                spanReInputPassword.innerText="v";
+                return true;
+             }
+         }
+         function CheckBirthDay()
+         {
+             var toDay= new Date();
+             var temp= new Date(document.getElementById("BirthDay").value);
+             if(eval(toDay.getFullYear()-temp.getFullYear())<=10)
+             {
+                 spanBirthDay.innerText="Tuổi phải lớn hơn 10";
+                 return false;
+             }
+             else
+             {
+                spanBirthDay.innerText="v";
+                return true;
+             }
+         } 
+         function CheckPhone()
+         {
+             var temp =/(?=^0\d*).{10,10}/;
+             if(temp.test(document.getElementById("Phone").value)==false)
+             {
+                 spanPhone.innerText="*Số điện thoại sai!";
+                 return false;
+             }
+             else
+             {
+                 spanPhone.innerText="v";
+                 return true;
+             }
+         }
+         function CheckNameEmail()
+         {             
+             var temp=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+             if(temp.test(document.getElementById("Email").value)==false)
+             {
+                spanEmail.innerText="*Email không hợp lệ!";                 
+                 return false;
+             }
+             else
+             {
+                spanEmail.innerText="v";
+                 return true;
+             }
+         }
+         function CheckSubmit()
+         {
+            if(CheckUserName==false||CheckPassword==false||CheckReInputPassword==false||
+            CheckBirthDay==false||CheckPhone==false||CheckNameEmail==false)
+            {
+                alert("Vui lòng nhập đầy đủ!");
+                return false;
+            }
+            else
+            {
+                var resul= open("form_ketqua.html","ketqua");
+                return true;
+            }
+         }
+
+     </script>
+     <style type="text/css" >
+         body{
+             font-family: Arial, Helvetica, sans-serif;
+         }
+         div{
+             border-bottom: 1px solid #fdfdfd;
+             margin: auto;
+             padding-top: 5px;
+             padding-bottom: 10px;
+             width: 720px;
+         }
+         .title{
+            float: left;
+            width: 200px;
+            text-align: right;
+            padding-right: 10px;
+            color: black;
+            font-size: 18px;
+         }
+         .radio-buttons label{
+            float: none;
+         }
+         .submit{
+             text-align: center;
+         }
+         input[type=submit]{
+             padding: 1em 2em;
+             border: 1px solid #333;
+             -moz-border-radius: 5px;
+             -webkit-border-radius: 5px;
+             background-color: aqua;
+         }
+         span{
+             color: red;
+         }
+     </style>          
+</head>
+<body>
+    <h2 style="text-align: center;"> ĐĂNG KÝ TÀI KHOẢN</h2> 
+    <form name="formi" onSubmit="SubmitForm();" method="post" action="#">
+        <div>
+            <label for="User" class="title" >Tên đăng nhập: </label> 
+            <input id="User" onblur="CheckUserName()" type="text" name="user" size="30" 
+            placeholder="Nhập tên đăng nhập của bạn" /> 
+            <span id="spanUser"> </span>
+        </div>
+        <div>
+            <label for="Password" class="title" >Mặt khẩu:</label> 
+            <input id="Password" onBlur="CheckPassword()" type="password" name="password" size="30" 
+            placeholder="Nhập mật khẩu" />
+            <span id="spanPassword"> </span>
+        </div>
+        <div>
+            <label for="reInputPassword" class="title">Nhập lai mật khẩu: </label>
+            <input id="ReInputPassword" onBlur="CheckReInputPassword()" type="password" name="ReInputPassword" 
+            size="30" placeholder="Nhập lại mật khẩu" />
+            <span id="spanReInputPassword"> </span>
+        </div>
+
+        <h5 style="text-align: center;"> THÔNG TIN CÁ NHÂN </h5>
+
+        <div>
+            <label for= "userName" class="title">Họ và tên: </label> 
+            <input type="text" id="userName" name="userName" size="30"placeholder="Họ Và Tên" />
+            <span id="spanUserName"> * bắt buộc </span>
+        </div>
+        <div>
+            <label for="BirthDay" class="title">Ngày sinh:</label>
+            <input type="date" id="BirthDay" onBlur="CheckBirthDay()" name="txtNS" size="30" placeholder="txtNS" 
+            onblur="" />
+            <span id="spanBirthDay"> </span>
+        </div>
+        <div class="radio-buttons">
+            <span class="title"> Giới tính: </span>
+            <input type="radio" name="gender" id="male" value="M" checked />
+            <label for="male">Nam</label>
+            <input type="radio" name="gender" id="female" value="F" />
+            <label for="female">Nữ</label><br />
+        </div>
+        <div>
+            <label for="Adress" class="title">Địa Chỉ: </label>
+            <input type="text" id="Adress" name="adress" size="30" placeholder="Adress">
+            <span id="spanAdress"></span>
+        </div>
+        <div>
+            <label for="Phone" class="title">Số Điện THoại</label>
+            <input type="text" id="Phone" id="Phone" onblur="CheckPhone()" size="30" placeholder="Phone">
+            <span id="spanPhone"> </span>
+        </div>
+        <div>
+            <label for="Email" class="title">Email</label>
+            <input type="email" id="Email" onblur="CheckNameEmail()" size="30" placeholder="Email">
+            <span id="spanEmail"> </span>
+        </div>
+        <div class="submit">
+            <input type="submit" name="submit" id="submit" value="submit">
+            <input type="submit"  id="reshet" value="Hủy">
+        </div>
+    </form>    
+</body>
+</html>
